@@ -22,8 +22,7 @@ func main() {
 
 	a := &api.API{
 		Storage: st,
-		TCPAddr: "localhost:9000",
 	}
 	r := a.Routes()
-	r.Run(":8080")
+	r.Run(":8080") // REST API receiver
 }

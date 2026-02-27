@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+
+  receiver:
+    build:
+      context: .
+      dockerfile: Dockerfile.receiver
+    container_name: receiver
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+
+  sender:
+    build:
+      context: .
+      dockerfile: Dockerfile.sender
+    container_name: sender
+    ports:
+      - "8081:8081"
+    depends_on:
+      - receiver

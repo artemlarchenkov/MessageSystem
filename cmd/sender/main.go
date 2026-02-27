@@ -1,23 +1,12 @@
 package main
 
-import (
-	"fmt"
-	"net"
-	"time"
-)
+import "messagesystem/internal/api"
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:9000")
-	if err != nil {
-		panic(err)
+	a := &api.API{
+		TCPAddr: "receiver:9000",
 	}
-	defer conn.Close()
 
-	ticker := time.NewTicker(3 * time.Second)
-
-	for range ticker.C {
-		msg := "Hello from sender\n"
-		conn.Write([]byte(msg))
-		fmt.Println("Sent:", msg)
-	}
+	r := a.Routes()
+	r.Run(":8081") // REST API sender
 }
