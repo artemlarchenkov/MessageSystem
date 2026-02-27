@@ -178,5 +178,5 @@ Workflow расположен в:
 
 ## 👨‍💻 Автор
 
-Artem Lar
+Artem Larchenkov
 Go Backend Developer
