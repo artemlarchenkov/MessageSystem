@@ -1,0 +1,182 @@
+# 📬 Go Message Sender & Receiver
+
+Простое микросервисное приложение на **Go**, состоящее из двух сервисов:
+
+* ✅ **Sender** — отправляет сообщения через HTTP POST запрос
+* ✅ **Receiver** — принимает сообщения и сохраняет их в базу данных SQLite
+
+Проект контейнеризирован с использованием **Docker** и автоматически собирается через **GitHub Actions (CI)**.
+
+---
+
+## 🏗 Архитектура
+
+```
+Клиент
+   │
+   ▼
+Sender Service ─────► Receiver Service ─────► SQLite
+      HTTP POST            Сохранение сообщения
+```
+
+---
+
+## ⚙️ Используемые технологии
+
+* Go
+* Gin (HTTP-фреймворк)
+* SQLite
+* Docker
+* Docker Compose
+* GitHub Actions (CI)
+
+---
+
+## 📦 Сервисы
+
+### 🚀 Sender
+
+Отвечает за отправку сообщений в Receiver.
+
+Endpoint:
+
+```
+POST /send
+```
+
+Пример запроса:
+
+```json
+{
+  "content": "Hello from sender"
+}
+```
+
+---
+
+### 📥 Receiver
+
+Принимает сообщения и сохраняет их в базу данных.
+
+Endpoints:
+
+```
+POST /message
+GET  /messages
+```
+
+---
+
+## 🐳 Запуск через Docker
+
+### Сборка и запуск сервисов
+
+```bash
+docker compose up --build
+```
+
+После запуска сервисы будут доступны:
+
+| Сервис   | Порт |
+| -------- | ---- |
+| Sender   | 8080 |
+| Receiver | 8081 |
+
+---
+
+## 🧪 Пример использования
+
+Отправка сообщения:
+
+```bash
+curl -X POST http://localhost:8080/send \
+-H "Content-Type: application/json" \
+-d '{"content":"Hello Docker"}'
+```
+
+Получение сообщений:
+
+```bash
+curl http://localhost:8081/messages
+```
+
+---
+
+## 🗄 База данных
+
+Receiver автоматически создаёт таблицу:
+
+```sql
+CREATE TABLE messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    content TEXT
+);
+```
+
+Файл базы данных SQLite создаётся внутри контейнера.
+
+---
+
+## 🔄 CI (Continuous Integration)
+
+GitHub Actions автоматически выполняет:
+
+✅ сборку проекта
+✅ запуск тестов
+
+Workflow расположен в:
+
+```
+.github/workflows/go.yml
+```
+
+Запускается при:
+
+* push в ветку `main`
+* pull request в `main`
+
+---
+
+## 📁 Структура проекта
+
+```
+.
+├── sender/
+│   ├── main.go
+│   └── Dockerfile
+│
+├── receiver/
+│   ├── main.go
+│   └── Dockerfile
+│
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+## ✅ Реализованные возможности
+
+* Микросервисная архитектура
+* REST API взаимодействие
+* Хранение данных в SQLite
+* Docker-контейнеризация
+* CI сборка проекта
+
+---
+
+## 🚧 Возможные улучшения
+
+* Добавление очереди сообщений (RabbitMQ / Kafka)
+* Логирование
+* Retry-механизм
+* Аутентификация
+* Покрытие тестами
+* Swagger документация API
+
+---
+
+## 👨‍💻 Автор
+
+Artem Larchenkov
+Go Backend Developer
