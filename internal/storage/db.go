@@ -16,7 +16,7 @@ func New(path string) (*Storage, error) {
 	}
 
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS messages (
-					  if INTEGER PRIMARY KEY AUTOINCREMENT,
+					  id INTEGER PRIMARY KEY AUTOINCREMENT,
 					  content TEXT
 	)`)
 

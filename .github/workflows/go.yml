@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-пше
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
